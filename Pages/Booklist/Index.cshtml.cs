@@ -13,13 +13,28 @@ namespace BookList.Pages.Booklist
     {
         private readonly ApplicationDbContext _db;
         public IEnumerable<Book> Books { get; set; }
-        public async Task OnGet()
-        {
-            Books = await _db.Book.ToListAsync();
-        }
+
         public IndexModel(ApplicationDbContext db)
         {
             _db = db;
         }
+
+        public async Task OnGet()
+        {
+            Books = await _db.Book.ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostDelete(int id)
+        {
+            var BookDelete = await _db.Book.FindAsync(id);
+            if (BookDelete == null)
+            {
+                return NotFound();
+            }
+            _db.Book.Remove(BookDelete);
+            await _db.SaveChangesAsync();
+            return RedirectToPage("Index");
+        }
+
     }
 }
