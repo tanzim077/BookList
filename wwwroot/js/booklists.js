@@ -23,11 +23,12 @@ function loadDataTable() {
                             Edit
                         </a>
                         &nbsp;
-                        <a class="btn btn-danger text-white" style="cursor:pointer; width:70px;">
+                        <a class="btn btn-danger text-white" style="cursor:pointer; width:70px;"
+                        onclick = Delete("/api/Delete?id"=+${data})>
                             Delete
                         </a>
                         </div>`;
-                }, "width": "40%"
+                }, "width": "30%"
             }
         ],
         "language": {
@@ -37,39 +38,28 @@ function loadDataTable() {
     });
 }
 
-// var dataTable;
-// $(document).ready(function () {
-//     loadDataTable();
-// });
-
-// function loadDataTable() {
-//     dataTable = $('#DT_load').DataTable({
-//         "ajax": {
-//             "url": "/api/book",
-//             "type": "GET",
-//             "datatype": "json"
-//         },
-//         "columns": [
-//             {"data": "name","width":"30%"},
-//             {"data": "author","width":"30%"},
-//             { "data": "isbn", "width": "30%" },
-//             {
-//                 "data": "id",
-//                 "render": function (data) 
-//                 {
-//                     return `<div class="text-center"> 
-//                     <a href ="/Booklist/Edit?id=${data}" class='btn btn success text white' style='cursor:pointer; width:100px;'> Edit</a>
-//                     &nbsp;
-//                     <a class='btn btn danger text white' style='cursor:pointer; width:100px;'> Delete</a>
-//                     </div>`;
-//                 },
-//                 "width":"30%"
-//             }
-//         ],
-//         "language" : 
-//         {
-//             "emptyTable" : "No data found"
-//         },
-//         "width": "100%"
-//     });
-// }
+function Delete(url){
+    swal({
+        title: "Are you sure you want to delete?",
+        text: "Once delete you will not be able to recoverd it",
+        icon: "warning",
+        dangerMode: true
+    }).then((willdelete) => {
+        if(willdelete){
+            $.ajax({
+                type="DELETE",
+                url = url,
+                success : function(data){
+                    if(data.success){
+                        toastr.success(message);
+                        dataTable.ajax.reload();
+                    }
+                    else{
+                        toastr.error();(message);
+                    }
+                }
+            });
+        }
+    
+    });
+}
