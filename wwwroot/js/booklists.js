@@ -31,7 +31,7 @@ function loadDataTable() {
             }
         ],
         "language": {
-            "emptyTable": "no data found"
+            "emptyTable": "no data has been found"
         },
         "width": "100%"
     });
