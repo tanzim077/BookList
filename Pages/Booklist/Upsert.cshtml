@@ -1,15 +1,14 @@
-﻿@* Upsert can be used an alternative for edit *@
-@* 
-@page
-@model BookList.Pages.Booklist.EditModel
+﻿@page
+@model MyApp.Namespace.UpsertModel
 @{
 }
-<h2 class="text-xl-center">Edit Book</h2>
+<h2 class="text-xl-center">@(Model.Book.ID != 0 ? "Edit" : "Create") Book</h2>
 <div class="border container" style="padding: 30px">
     <form method="post">
-
-        <input type="hidden" asp-for="Book.ID" />
-
+        @if (Model.Book.ID != 0 )
+        {
+                    <input type="hidden" asp-for="Book.ID" />
+        }
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
         <div class=" form-group row">
             <div class="col-3 text-right">
@@ -47,7 +46,7 @@
 
         <div class="form-group row">
             <div class="col-3 offset-3">
-                <input type="submit" value="Update" class="btn btn-success form-control" />
+                <button type="submit" class="btn btn-success form-control">@(Model.Book.ID != 0 ? "Update" : "Create") Book</button>
             </div>
             <div class="col-3">
                 <a asp-page="Index" class="btn btn-primary form-control">Back to Index</a>
@@ -59,4 +58,4 @@
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
-} *@
+}

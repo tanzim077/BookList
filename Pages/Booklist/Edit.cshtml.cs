@@ -1,3 +1,5 @@
+//Upsert can be used an alternative for edit
+/*
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,3 +43,4 @@ namespace BookList.Pages.Booklist
 
     }
 }
+/*
